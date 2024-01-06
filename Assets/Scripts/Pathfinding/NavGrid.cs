@@ -142,6 +142,7 @@ namespace SubjectGuide.Pathfinding {
     }
 
     // Debug Draw
+#if DEBUG
     private void OnDrawGizmos() {
       Gizmos.DrawWireCube(_floor.position, new(_gridWorldSize.x, 1, _gridWorldSize.y));
       if (_nodes != null) {
@@ -159,6 +160,7 @@ namespace SubjectGuide.Pathfinding {
         }
       }
     }
+#endif
 
     public List<Node> FinalPath {
       get { return _finalPath; }
