@@ -29,11 +29,13 @@ namespace SubjectGuide.Pathfinding {
       _pathfinder = FindObjectOfType<Pathfinder>();
     }
 
-    private void Start() {
+    public Task Init() {
       _nodeDiameter = _nodeRadius * 2;
       _gridSizeX = Mathf.RoundToInt(_gridWorldSize.x / _nodeDiameter);
       _gridSizeY = Mathf.RoundToInt(_gridWorldSize.y / _nodeDiameter);
       CreateNodes();
+      Debug.Log("Nav Completed");
+      return Task.CompletedTask;
     }
 
     public async void MoveActor(Transform actor, Vector3 destination) {
@@ -165,6 +167,11 @@ namespace SubjectGuide.Pathfinding {
     public List<Node> FinalPath {
       get { return _finalPath; }
       set { _finalPath = value; }
+    }
+
+    public Vector2 GridWorldSize {
+      get { return _gridWorldSize; }
+      set { _gridWorldSize = value; }
     }
   }
 }

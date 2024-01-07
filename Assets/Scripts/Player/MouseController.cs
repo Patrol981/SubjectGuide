@@ -17,7 +17,6 @@ namespace SubjectGuide.Player {
 
     private void Update() {
       RayMouse();
-
       if (Input.GetMouseButtonDown(0)) {
         _gameManager.NavGrid.MoveActor(_gameManager.Player, _worldPoint);
       }
