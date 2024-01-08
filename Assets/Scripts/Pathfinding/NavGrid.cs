@@ -34,7 +34,6 @@ namespace SubjectGuide.Pathfinding {
       _gridSizeX = Mathf.RoundToInt(_gridWorldSize.x / _nodeDiameter);
       _gridSizeY = Mathf.RoundToInt(_gridWorldSize.y / _nodeDiameter);
       CreateNodes();
-      Debug.Log("Nav Completed");
       return Task.CompletedTask;
     }
 

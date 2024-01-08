@@ -8,10 +8,10 @@ namespace SubjectGuide.Map {
   public class MapScript : MonoBehaviour {
     [SerializeField] private MapData _mapData;
     [SerializeField] private Transform _floor;
+    [SerializeField] private Transform _obstaclesParent;
 
     public async Task<Task> Setup() {
       await GenerateMap();
-      Debug.Log("Generate Completed");
       return Task.CompletedTask;
     }
 
@@ -35,12 +35,14 @@ namespace SubjectGuide.Map {
         var randomRotation = RandomNumberGenerator.GetRandomRotationY();
 
         // wait for object to spawn, kinda nasty but adressables aren't awaitable in a proper way
-        await obstacleToSpawn.InstantiateAsync(randomPosition, randomRotation, null).Task;
+        var go = await obstacleToSpawn.InstantiateAsync(randomPosition, randomRotation, _obstaclesParent).Task;
+        go.AddComponent<MapObstacle>().ObstacleData.SetupAssetReferenceData(obstacleToSpawn, go.transform);
       }
 
       return Task.CompletedTask;
     }
 
     public MapData MapData => _mapData;
+    public Transform ObstaclesParent => _obstaclesParent;
   }
 }

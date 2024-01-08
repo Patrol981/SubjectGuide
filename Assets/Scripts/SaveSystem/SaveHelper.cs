@@ -16,6 +16,8 @@ namespace SubjectGuide.SaveSystem {
       return data;
     }
 
+    // public
+
     private static async void SaveData<T>(string fileName, object data) {
       var fullPath = GetSavePath();
       Directory.CreateDirectory(fullPath);

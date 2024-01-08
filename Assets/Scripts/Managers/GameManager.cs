@@ -21,12 +21,6 @@ namespace SubjectGuide.Managers {
       await _navGrid.Init();
     }
 
-    public void Update() {
-      if (Input.GetKeyDown(KeyCode.Tab)) {
-        _navGrid.Init();
-      }
-    }
-
     public NavGrid NavGrid => _navGrid;
     public Transform Player => _player;
   }
