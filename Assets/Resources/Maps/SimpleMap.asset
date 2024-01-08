@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapDimensions: {x: 30, y: 30}
   Obstacles:
-  - {fileID: 2803875135805980899, guid: 309d5cf481ee8084db73a8192febdc0a, type: 3}
+  - m_AssetGUID: 309d5cf481ee8084db73a8192febdc0a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   ObstaclesCount: 6

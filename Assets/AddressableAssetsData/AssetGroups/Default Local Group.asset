@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 15ab7acfabc7dcb4988d5b85f73648b9
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 309d5cf481ee8084db73a8192febdc0a
+    m_Address: Assets/Prefabs/Office Table.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4f0119abf4a129245a5ff0c6170f3ac0, type: 2}
   m_SchemaSet:

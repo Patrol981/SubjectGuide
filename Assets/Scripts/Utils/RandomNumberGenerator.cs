@@ -17,5 +17,10 @@ namespace SubjectGuide.Utils {
       var randomY = (float)s_random.NextDouble() * (max.y - min.y) + min.y;
       return new(randomX, randomY);
     }
+
+    public static Quaternion GetRandomRotationY() {
+      var rotY = (float)s_random.NextDouble() * (360 - 0) + 0;
+      return Quaternion.Euler(0, rotY, 0);
+    }
   }
 }
