@@ -7,6 +7,7 @@ using SubjectGuide.Map;
 using UnityEngine;
 using Newtonsoft.Json;
 using SubjectGuide.Utils;
+using System.Text;
 
 namespace SubjectGuide.SaveSystem {
   public static class SaveHelper {
@@ -15,7 +16,7 @@ namespace SubjectGuide.SaveSystem {
       SaveData<T>(fileName, json);
     }
 
-    public static async Task<object> Load(string fileNameWithExt) {
+    public static async Task<MapSave> Load(string fileNameWithExt) {
       var data = await LoadData(fileNameWithExt);
       return data;
     }
@@ -40,20 +41,25 @@ namespace SubjectGuide.SaveSystem {
         await File.WriteAllTextAsync(finalPath, (string)data);
       } else if (typeof(T) == typeof(byte[])) {
         var finalPath = Path.Combine(fullPath, $"{fileName}.bin");
-        await File.WriteAllBytesAsync(finalPath, (byte[])data);
+        var byteData = Encoding.UTF8.GetBytes((string)data);
+        await File.WriteAllBytesAsync(finalPath, byteData);
       } else {
         throw new InvalidCastException("Unsupported data type. Please use byte[] or string");
       }
     }
 
-    private static async Task<object> LoadData(string fileNameWithExt) {
+    private static async Task<MapSave> LoadData(string fileNameWithExt) {
       var fullPath = GetSavePath();
       var finalPath = Path.Combine(fullPath, fileNameWithExt);
-      object data;
+      MapSave data;
       if (fileNameWithExt.Contains(".bin")) {
-        data = await File.ReadAllBytesAsync(finalPath);
+        var bytes = await File.ReadAllBytesAsync(finalPath);
+        var stringData = Encoding.UTF8.GetString(bytes);
+        data = DeserializeJsonToObject(stringData);
       } else if (fileNameWithExt.Contains(".json")) {
-        data = await File.ReadAllTextAsync(finalPath);
+        // var text = = await File.ReadAllTextAsync(finalPath);
+        using var reader = File.OpenText(finalPath);
+        data = DeserializeJsonToObject(reader);
       } else {
         throw new FileLoadException("Incorrect file type. Please use either .json or .bin");
       }
@@ -64,6 +70,16 @@ namespace SubjectGuide.SaveSystem {
     private static string SerializeObjectToJson(object data) {
       // using Newtonsoft, mainly because JsonUtility does not throw errors if the structure is wrong
       return JsonConvert.SerializeObject(data);
+    }
+
+    private static MapSave DeserializeJsonToObject(StreamReader reader) {
+      var serializer = new JsonSerializer();
+      var data = (MapSave)serializer.Deserialize(reader, typeof(MapSave));
+      return data;
+    }
+
+    private static MapSave DeserializeJsonToObject(string jsonString) {
+      return JsonConvert.DeserializeObject<MapSave>(jsonString);
     }
 
     private static string GetSavePath() {

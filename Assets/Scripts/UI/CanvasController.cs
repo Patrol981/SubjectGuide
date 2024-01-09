@@ -25,8 +25,6 @@ namespace SubjectGuide.UI {
         (int)SaveExtensionType.Binary => SaveExtensionType.Binary,
         _ => throw new Exception("Dropdown was out of bounds"),
       };
-
-      Debug.Log(SaveScript.SaveExtensionType);
     }
 
     public void Save() {

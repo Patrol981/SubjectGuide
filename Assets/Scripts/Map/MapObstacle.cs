@@ -23,6 +23,10 @@ namespace SubjectGuide.Map {
     public void SetupAssetReferenceData(AssetReference assetReference) {
       AssetGuid = assetReference.AssetGUID;
     }
+
+    public void SetupAssetReferenceData(string assetId) {
+      AssetGuid = assetId;
+    }
   }
 
   public class MapObstacle : MonoBehaviour {

@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using SubjectGuide.Managers;
+using SubjectGuide.Map;
 using UnityEngine;
 
 namespace SubjectGuide.SaveSystem {
@@ -9,18 +11,30 @@ namespace SubjectGuide.SaveSystem {
     private static string s_savePath = String.Empty;
     private static SaveExtensionType s_saveExt = SaveExtensionType.Json;
 
-    public void Load() {
+    public async void Load() {
+      string ext = String.Empty;
+      switch (s_saveExt) {
+        case SaveExtensionType.Binary:
+          ext = ".bin";
+          break;
+        case SaveExtensionType.Json:
+          ext = ".json";
+          break;
+      }
+      var loadedData = await SaveHelper.Load($"{s_savePath}{ext}");
 
+      await _gameManager.MapScript.LoadMap(loadedData);
     }
 
     public void Save() {
-      var saveData = SaveHelper.GetMapObstacles(_gameManager.MapScript.ObstaclesParent);
+      var obstacles = SaveHelper.GetMapObstacles(_gameManager.MapScript.ObstaclesParent);
+      var mapSave = new MapSave(obstacles);
       switch (s_saveExt) {
         case SaveExtensionType.Json:
-          SaveHelper.Save<string>(s_savePath, saveData);
+          SaveHelper.Save<string>(s_savePath, mapSave);
           break;
         case SaveExtensionType.Binary:
-          SaveHelper.Save<byte[]>(s_savePath, saveData);
+          SaveHelper.Save<byte[]>(s_savePath, mapSave);
           break;
       }
     }

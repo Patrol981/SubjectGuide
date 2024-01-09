@@ -1,22 +1,48 @@
 using System.Threading.Tasks;
 using SubjectGuide.Managers;
+using SubjectGuide.SaveSystem;
 using SubjectGuide.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace SubjectGuide.Map {
   public class MapScript : MonoBehaviour {
+    [SerializeField] private GameManager _gameManager;
+
     [SerializeField] private MapData _mapData;
     [SerializeField] private Transform _floor;
     [SerializeField] private Transform _obstaclesParent;
+
+    private void Start() {
+      _gameManager = FindObjectOfType<GameManager>();
+    }
 
     public async Task<Task> Setup() {
       await GenerateMap();
       return Task.CompletedTask;
     }
 
-    private void LoadMap() {
+    internal async Task<Task> LoadMap(MapSave saveData) {
+      var obstacles = _obstaclesParent.GetComponentsInChildren<MapObstacle>();
+      foreach (var obstacle in obstacles) {
+        Destroy(obstacle.gameObject);
+      }
 
+      foreach (var mapObstacle in saveData.MapObstacles) {
+        var pos = SVector3.ToVector3(mapObstacle.Position);
+        var rot = SVector3.ToVector3(mapObstacle.Rotation);
+
+        var go = await Addressables.InstantiateAsync(
+         mapObstacle.AssetGuid,
+         pos,
+         Quaternion.Euler(rot),
+         _obstaclesParent
+        ).Task;
+        go.AddComponent<MapObstacle>().ObstacleData.SetupAssetReferenceData(mapObstacle.AssetGuid);
+      }
+
+      await _gameManager.NavGrid.Init();
+      return Task.CompletedTask;
     }
 
     private async Task<Task> GenerateMap() {
@@ -26,11 +52,14 @@ namespace SubjectGuide.Map {
       var min = new Vector2(bounds.min.x, bounds.min.z) * _floor.localScale;
       var max = new Vector2(bounds.max.x, bounds.max.z) * _floor.localScale;
 
+      var maxRng = _mapData.Obstacles.Count;
+
       for (short i = 0; i < _mapData.ObstaclesCount; i++) {
-        var indexToSpawn = RandomNumberGenerator.RandomInt(0, _mapData.Obstacles.Count - 1);
+        var indexToSpawn = RandomNumberGenerator.RandomInt(0, maxRng - 1);
         var obstacleToSpawn = _mapData.Obstacles[indexToSpawn];
 
-        var randomPosition = RandomNumberGenerator.GetRandomPosition(min, max);
+        var randomPosition = RandomNumberGenerator.GetRandomPosition(min, max).ToVector3();
+        randomPosition.z = randomPosition.y;
         randomPosition.y = 0;
         var randomRotation = RandomNumberGenerator.GetRandomRotationY();
 

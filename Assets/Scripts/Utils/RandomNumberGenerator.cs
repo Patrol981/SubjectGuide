@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace SubjectGuide.Utils {
   public sealed class RandomNumberGenerator {
-    private static System.Random s_random = new();
+    private static readonly System.Random s_random = new();
     public static double RandomDoubleValue(double min, double max) {
       return s_random.NextDouble() * (max - min) + min;
     }
 
     public static int RandomInt(int min, int max) {
-      return s_random.Next() * (max - min) + min;
+      return s_random.Next(min, max + 1);
     }
 
     public static Vector2 GetRandomPosition(Vector2 min, Vector2 max) {
