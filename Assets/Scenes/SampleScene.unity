@@ -321,7 +321,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 699166148}
+        m_TargetAssemblyTypeName: SubjectGuide.UI.CanvasController, Assembly-CSharp
+        m_MethodName: HandleSaveInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -475,7 +487,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 699166148}
+        m_TargetAssemblyTypeName: SubjectGuide.UI.CanvasController, Assembly-CSharp
+        m_MethodName: HandleSaveExtension
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &89505688
 MonoBehaviour:
@@ -597,7 +621,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 168480289}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 699166148}
+        m_TargetAssemblyTypeName: SubjectGuide.UI.CanvasController, Assembly-CSharp
+        m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &168480289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,6 +1887,8 @@ GameObject:
   - component: {fileID: 699166146}
   - component: {fileID: 699166145}
   - component: {fileID: 699166147}
+  - component: {fileID: 699166149}
+  - component: {fileID: 699166148}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1923,6 +1961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navGrid: {fileID: 699166142}
   _mapScript: {fileID: 699166147}
+  _saveScript: {fileID: 699166149}
   _player: {fileID: 341003100}
 --- !u!114 &699166146
 MonoBehaviour:
@@ -1951,6 +1990,34 @@ MonoBehaviour:
   _mapData: {fileID: 11400000, guid: 9b647eca0156bd44b9ad76cc918b1c4b, type: 2}
   _floor: {fileID: 1884896127}
   _obstaclesParent: {fileID: 1228295073}
+--- !u!114 &699166148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699166141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61ef4c021073944fbe7ac9ab1d6d2e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 699166145}
+  _saveInput: {fileID: 85206062}
+  _saveExtDropdown: {fileID: 89505687}
+--- !u!114 &699166149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699166141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b356cb5492a5841988ef56ff469615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 699166145}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,7 +2487,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1419921913}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 699166148}
+        m_TargetAssemblyTypeName: SubjectGuide.UI.CanvasController, Assembly-CSharp
+        m_MethodName: Load
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1419921913
 MonoBehaviour:
   m_ObjectHideFlags: 0

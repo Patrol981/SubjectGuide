@@ -36,7 +36,7 @@ namespace SubjectGuide.Map {
 
         // wait for object to spawn, kinda nasty but adressables aren't awaitable in a proper way
         var go = await obstacleToSpawn.InstantiateAsync(randomPosition, randomRotation, _obstaclesParent).Task;
-        go.AddComponent<MapObstacle>().ObstacleData.SetupAssetReferenceData(obstacleToSpawn, go.transform);
+        go.AddComponent<MapObstacle>().ObstacleData.SetupAssetReferenceData(obstacleToSpawn);
       }
 
       return Task.CompletedTask;
