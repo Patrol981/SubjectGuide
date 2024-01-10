@@ -50,7 +50,12 @@ namespace SubjectGuide.Managers {
       return go.GetComponent<ISubject>();
     }
 
+    public void SetGuide(ISubject subject) {
+      _guide = subject;
+    }
+
     public ISubject Guide => _guide;
+    public ISubject[] Subjects => _subjects;
 
 #if DEBUG
     private void PrintArray() {

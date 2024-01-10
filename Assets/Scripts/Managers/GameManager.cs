@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using SubjectGuide.Map;
 using SubjectGuide.Pathfinding;
 using SubjectGuide.SaveSystem;
+using SubjectGuide.UI;
 using UnityEngine;
 
 namespace SubjectGuide.Managers {
@@ -10,7 +11,7 @@ namespace SubjectGuide.Managers {
     [SerializeField] private MapScript _mapScript;
     [SerializeField] private SaveScript _saveScript;
     [SerializeField] private SubjectManager _subjectManager;
-    [SerializeField] private Transform _player;
+    [SerializeField] private CanvasController _canvasController;
 
     private void Start() {
       Setup();
@@ -23,13 +24,13 @@ namespace SubjectGuide.Managers {
       await _mapScript.Setup();
       await _navGrid.Init();
       await _subjectManager.Init();
-      _player = _subjectManager.Guide.Transform;
+      await _canvasController.CreateUIHooks(_subjectManager.Subjects);
     }
 
     public NavGrid NavGrid => _navGrid;
     public MapScript MapScript => _mapScript;
     public SaveScript SaveScript => _saveScript;
     public SubjectManager SubjectManager => _subjectManager;
-    public Transform Player => _player;
+    public Transform Player => _subjectManager.Guide.Transform;
   }
 }

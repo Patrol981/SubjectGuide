@@ -3,6 +3,8 @@ using TMPro;
 using SubjectGuide.SaveSystem;
 using System;
 using SubjectGuide.Managers;
+using UnityEngine.UI;
+using System.Threading.Tasks;
 
 namespace SubjectGuide.UI {
   public class CanvasController : MonoBehaviour {
@@ -11,8 +13,30 @@ namespace SubjectGuide.UI {
     [SerializeField] private TMP_InputField _saveInput;
     [SerializeField] private TMP_Dropdown _saveExtDropdown;
 
+    [SerializeField] private Transform _hooksPanel;
+    [SerializeField] private Sprite _portrait;
+
     private void Awake() {
       _gameManager = FindObjectOfType<GameManager>();
+    }
+
+    public Task CreateUIHooks(ISubject[] subjects) {
+      foreach (var sub in subjects) {
+        var go = new GameObject();
+        go.name = sub.SubjectId.ToString();
+        go.transform.parent = _hooksPanel;
+        go.AddComponent<RectTransform>();
+        go.AddComponent<CanvasRenderer>();
+        go.AddComponent<Button>();
+        go.AddComponent<Image>();
+        go.GetComponent<Button>().onClick.AddListener(delegate { HandleClick(sub); });
+        go.GetComponent<Image>().sprite = _portrait;
+      }
+      return Task.CompletedTask;
+    }
+
+    public void HandleClick(ISubject subject) {
+      _gameManager.SubjectManager.SetGuide(subject);
     }
 
     public void HandleSaveInput() {

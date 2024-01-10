@@ -3,7 +3,12 @@ guid: b61ef4c021073944fbe7ac9ab1d6d2e6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _gameManager: {instanceID: 0}
+  - _saveInput: {instanceID: 0}
+  - _saveExtDropdown: {instanceID: 0}
+  - _hooksPanel: {instanceID: 0}
+  - _portrait: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
