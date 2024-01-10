@@ -1,14 +1,33 @@
 using System;
+using SubjectGuide.Managers;
 using SubjectGuide.Utils;
 using UnityEngine;
 
 namespace SubjectGuide {
   public class Subject : MonoBehaviour, ISubject {
-    private Guid _subjectId = Guid.NewGuid();
+    private GameManager _gameManager;
+    [SerializeField] private Animator _animator;
 
+    private Guid _subjectId = Guid.NewGuid();
     private double _speed = 0.0f;
     private double _agility = 0.0f;
     private double _constitution = 0.0f;
+
+    private bool _isMoving = false;
+
+    private void Awake() {
+      _gameManager = FindObjectOfType<GameManager>();
+    }
+
+    private void Start() {
+      GenerateAttributes();
+    }
+
+    private void Update() {
+      _isMoving = _gameManager.NavGrid.Busy;
+
+      _animator.SetBool("IsMoving", _isMoving);
+    }
 
     public void GenerateAttributes() {
       _speed = RandomNumberGenerator.RandomDoubleValue(1, 5);
@@ -20,5 +39,6 @@ namespace SubjectGuide {
     public double Speed => _speed;
     public double Agility => _agility;
     public double Constitution => _constitution;
+    public Transform Transform => transform;
   }
 }

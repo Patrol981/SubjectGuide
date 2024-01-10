@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace SubjectGuide {
   public interface ISubject {
@@ -6,5 +7,6 @@ namespace SubjectGuide {
     double Speed { get; }
     double Agility { get; }
     double Constitution { get; }
+    Transform Transform { get; }
   }
 }

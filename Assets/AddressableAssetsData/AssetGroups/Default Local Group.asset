@@ -22,6 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cee49cad2fe376c4d95bde986af31c11
+    m_Address: Assets/Prefabs/Coffe Distributor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4f0119abf4a129245a5ff0c6170f3ac0, type: 2}
   m_SchemaSet:

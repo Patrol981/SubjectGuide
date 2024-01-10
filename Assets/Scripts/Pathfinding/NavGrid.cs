@@ -41,6 +41,7 @@ namespace SubjectGuide.Pathfinding {
       if (_moving) { return; }
       _moving = true;
       CalculatePath(actor.position, destination);
+      // actor.rotation = Quaternion.Euler(lookDir.x, 0, lookDir.z);
       await MoveObject(actor);
       _moving = false;
     }
@@ -52,6 +53,11 @@ namespace SubjectGuide.Pathfinding {
     private async Task MoveObject(Transform target) {
       for (short i = 0; i < _finalPath.Count; i++) {
         var targetNode = _finalPath[i];
+
+        var lookDir = target.position - targetNode.Position;
+        lookDir.y = 0;
+        target.rotation = Quaternion.LookRotation(-lookDir);
+
         await MoveToPosition(target, targetNode.Position, _speed);
       }
     }
@@ -172,5 +178,7 @@ namespace SubjectGuide.Pathfinding {
       get { return _gridWorldSize; }
       set { _gridWorldSize = value; }
     }
+
+    public bool Busy => _moving;
   }
 }
