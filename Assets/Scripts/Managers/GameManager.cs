@@ -31,6 +31,7 @@ namespace SubjectGuide.Managers {
     public MapScript MapScript => _mapScript;
     public SaveScript SaveScript => _saveScript;
     public SubjectManager SubjectManager => _subjectManager;
+    public CanvasController CanvasController => _canvasController;
     public Transform Player => _subjectManager.Guide.Transform;
   }
 }

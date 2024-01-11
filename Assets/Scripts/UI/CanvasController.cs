@@ -29,14 +29,29 @@ namespace SubjectGuide.UI {
         go.AddComponent<CanvasRenderer>();
         go.AddComponent<Button>();
         go.AddComponent<Image>();
-        go.GetComponent<Button>().onClick.AddListener(delegate { HandleClick(sub); });
+        go.GetComponent<Button>().onClick.AddListener(delegate { HandleClick(sub, go); });
         go.GetComponent<Image>().sprite = _portrait;
       }
       return Task.CompletedTask;
     }
 
-    public void HandleClick(ISubject subject) {
+    public void ClickButton(string id) {
+      var targetButton = _hooksPanel.Find(id);
+      ClearButtonsColor();
+      targetButton.GetComponent<Image>().color = Color.red;
+    }
+
+    private void HandleClick(ISubject subject, GameObject button) {
       _gameManager.SubjectManager.SetGuide(subject);
+      ClearButtonsColor();
+      button.GetComponent<Image>().color = Color.red;
+    }
+
+    private void ClearButtonsColor() {
+      var buttons = _hooksPanel.GetComponentsInChildren<Image>();
+      foreach (var btn in buttons) {
+        btn.color = Color.white;
+      }
     }
 
     public void HandleSaveInput() {

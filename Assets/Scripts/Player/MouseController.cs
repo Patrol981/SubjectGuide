@@ -6,6 +6,7 @@ namespace SubjectGuide.Player {
   public class MouseController : MonoBehaviour {
     private static Vector3 _mousePosition = Vector3.zero;
     private static Vector3 _worldPoint = Vector3.zero;
+    [SerializeField] private LayerMask _playerMask;
 
     private Transform _camera;
     private GameManager _gameManager;
@@ -17,8 +18,18 @@ namespace SubjectGuide.Player {
 
     private void Update() {
       RayMouse();
-      if (Input.GetMouseButtonDown(0) && !MouseOverUI()) {
+      if (Input.GetMouseButtonDown(1) && !MouseOverUI()) {
         _gameManager.NavGrid.MoveActor(_gameManager.Player, _worldPoint);
+      }
+      if (Input.GetMouseButtonDown(0) && !MouseOverUI()) {
+        var ray = _camera.GetComponent<Camera>().ScreenPointToRay(_mousePosition);
+        var result = Physics.Raycast(ray.origin, ray.direction, out var hit, _playerMask);
+        if (!result) return;
+        hit.transform.gameObject.TryGetComponent<ISubject>(out var subject);
+        if (subject == null) return;
+        _gameManager.CanvasController.ClickButton(subject.SubjectId.ToString());
+        _gameManager.SubjectManager.SetGuide(subject);
+
       }
     }
 

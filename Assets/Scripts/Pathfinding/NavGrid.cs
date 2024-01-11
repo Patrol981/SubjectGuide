@@ -38,7 +38,8 @@ namespace SubjectGuide.Pathfinding {
     }
 
     public async void MoveActor(Transform actor, Vector3 destination) {
-      if (_moving) { return; }
+      if (actor == null) return;
+      if (_moving) return;
       _moving = true;
       CalculatePath(actor.position, destination);
       // actor.rotation = Quaternion.Euler(lookDir.x, 0, lookDir.z);

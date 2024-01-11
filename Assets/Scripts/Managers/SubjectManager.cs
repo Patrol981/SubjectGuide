@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SubjectGuide.Managers {
   public class SubjectManager : MonoBehaviour {
     [SerializeField] private ISubject[] _subjects = new ISubject[0];
-    private ISubject _guide;
+    private ISubject _guide = null;
     [SerializeField] private GameObject _subjectPrefab;
 
     private void Update() {
@@ -27,14 +27,6 @@ namespace SubjectGuide.Managers {
 #if DEBUG
       PrintArray();
 #endif
-
-      _guide = _subjects[0];
-
-      Debug.Log(_guide.SubjectId);
-      Debug.Log(_guide.Agility);
-      Debug.Log(_guide.Speed);
-      Debug.Log(_guide.Constitution);
-
       return Task.CompletedTask;
     }
 
