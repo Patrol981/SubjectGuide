@@ -5,8 +5,6 @@ using UnityEngine;
 namespace SubjectGuide.Pathfinding {
   public class Pathfinder : MonoBehaviour {
     [SerializeField] private NavGrid _navGrid;
-    [SerializeField] private Transform _startPosition;
-    [SerializeField] private Transform _endPosition;
 
     private void Awake() {
       _navGrid = FindObjectOfType<NavGrid>();

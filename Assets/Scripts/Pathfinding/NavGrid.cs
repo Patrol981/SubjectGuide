@@ -7,7 +7,6 @@ using System.Linq;
 namespace SubjectGuide.Pathfinding {
   public class NavGrid : MonoBehaviour {
     [SerializeField] private Transform _floor;
-    [SerializeField] private Transform _startPosition;
     [SerializeField] private LayerMask _wallMask;
     [SerializeField] private Vector2 _gridWorldSize;
     [SerializeField] private float _nodeRadius;

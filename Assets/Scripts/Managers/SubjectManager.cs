@@ -8,6 +8,7 @@ namespace SubjectGuide.Managers {
     [SerializeField] private ISubject[] _subjects = new ISubject[0];
     private ISubject _guide = null;
     [SerializeField] private GameObject _subjectPrefab;
+    [SerializeField] private Transform _subjectParent;
 
     private void Update() {
 #if DEBUG
@@ -38,7 +39,7 @@ namespace SubjectGuide.Managers {
     }
 
     public ISubject CreateSubject(Vector3 vec3) {
-      var go = Instantiate(_subjectPrefab, vec3, Quaternion.identity, null);
+      var go = Instantiate(_subjectPrefab, vec3, Quaternion.identity, _subjectParent);
       return go.GetComponent<ISubject>();
     }
 
@@ -48,6 +49,8 @@ namespace SubjectGuide.Managers {
 
     public ISubject Guide => _guide;
     public ISubject[] Subjects => _subjects;
+
+    public Transform SubjectParent => _subjectParent;
 
 #if DEBUG
     private void PrintArray() {

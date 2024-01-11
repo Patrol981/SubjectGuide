@@ -33,6 +33,18 @@ namespace SubjectGuide.SaveSystem {
       return obstaclesData;
     }
 
+    public static List<SubjectSaveData> GetSubjectsInfo(Transform parent) {
+      var subjectsInfo = new List<SubjectSaveData>();
+      var subjects = parent.gameObject.GetComponentsInChildren<ISubject>();
+      foreach (var subject in subjects) {
+        subjectsInfo.Add(new(
+          SVector3.FromVector3(subject.Transform.position),
+          SVector3.FromVector3(subject.Transform.localRotation.eulerAngles)
+        ));
+      }
+      return subjectsInfo;
+    }
+
     private static async void SaveData<T>(string fileName, object data) {
       var fullPath = GetSavePath();
       Directory.CreateDirectory(fullPath);

@@ -28,7 +28,8 @@ namespace SubjectGuide.SaveSystem {
 
     public void Save() {
       var obstacles = SaveHelper.GetMapObstacles(_gameManager.MapScript.ObstaclesParent);
-      var mapSave = new MapSave(obstacles);
+      var subjects = SaveHelper.GetSubjectsInfo(_gameManager.SubjectManager.SubjectParent);
+      var mapSave = new MapSave(obstacles, subjects);
       switch (s_saveExt) {
         case SaveExtensionType.Json:
           SaveHelper.Save<string>(s_savePath, mapSave);

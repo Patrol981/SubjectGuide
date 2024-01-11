@@ -29,7 +29,6 @@ namespace SubjectGuide.Player {
         if (subject == null) return;
         _gameManager.CanvasController.ClickButton(subject.SubjectId.ToString());
         _gameManager.SubjectManager.SetGuide(subject);
-
       }
     }
 
