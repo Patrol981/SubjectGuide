@@ -27,6 +27,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 08323b0b6c993ef4183031c155a68a42
+    m_Address: Assets/Prefabs/Env/Shelf.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52cc87781e49a324488b613b6a4b6d10
+    m_Address: Assets/Prefabs/Env/Wet Floor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4f0119abf4a129245a5ff0c6170f3ac0, type: 2}
   m_SchemaSet:

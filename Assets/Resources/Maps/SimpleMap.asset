@@ -22,4 +22,12 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  ObstaclesCount: 6
+  - m_AssetGUID: 08323b0b6c993ef4183031c155a68a42
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  - m_AssetGUID: 52cc87781e49a324488b613b6a4b6d10
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  ObstaclesCount: 12

@@ -84,48 +84,17 @@ namespace SubjectGuide.Pathfinding {
 
     internal ReadOnlySpan<Node> GetNeighbouringNodes(Node node) {
       var neighbouringNodes = new List<Node>();
-      var xCheck = 0;
-      var yCheck = 0;
-      {
-        // Right Side
-        xCheck = node.GridX + 1;
-        yCheck = node.GridY;
-        if (xCheck >= 0 && xCheck < _gridSizeX) {
-          if (yCheck >= 0 && yCheck < _gridSizeY) {
-            neighbouringNodes.Add(_nodes[xCheck, yCheck]);
+      for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+          if (x == 0 && y == 0) {
+            continue;
           }
-        }
-      }
 
-      {
-        // Left Side
-        xCheck = node.GridX - 1;
-        yCheck = node.GridY;
-        if (xCheck >= 0 && xCheck < _gridSizeX) {
-          if (yCheck >= 0 && yCheck < _gridSizeY) {
-            neighbouringNodes.Add(_nodes[xCheck, yCheck]);
-          }
-        }
-      }
+          var checkX = node.GridX + x;
+          var checkY = node.GridY + y;
 
-      {
-        // Top Side
-        xCheck = node.GridX;
-        yCheck = node.GridY + 1;
-        if (xCheck >= 0 && xCheck < _gridSizeX) {
-          if (yCheck >= 0 && yCheck < _gridSizeY) {
-            neighbouringNodes.Add(_nodes[xCheck, yCheck]);
-          }
-        }
-      }
-
-      {
-        // Bottom Side
-        xCheck = node.GridX;
-        yCheck = node.GridY - 1;
-        if (xCheck >= 0 && xCheck < _gridSizeX) {
-          if (yCheck >= 0 && yCheck < _gridSizeY) {
-            neighbouringNodes.Add(_nodes[xCheck, yCheck]);
+          if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < _gridSizeY) {
+            neighbouringNodes.Add(_nodes[checkX, checkY]);
           }
         }
       }
