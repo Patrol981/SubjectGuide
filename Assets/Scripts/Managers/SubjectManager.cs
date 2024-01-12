@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SubjectGuide.Utils;
 using UnityEngine;
@@ -44,6 +45,18 @@ namespace SubjectGuide.Managers {
         Destroy(_subjects[i].Transform.gameObject);
       }
       _subjects = new ISubject[0];
+    }
+
+    public Transform[] GatherSubjects() {
+      var subjects = new List<Transform> {
+        _guide.Transform
+      };
+      var exludeGuide = _subjects
+        .Where(x => x.SubjectId != _guide.SubjectId)
+        .Select(x => x.Transform)
+        .ToArray();
+      subjects.AddRange(exludeGuide);
+      return subjects.ToArray();
     }
 
     public Task LoadSubjectData(ReadOnlySpan<SubjectSaveData> subsData) {

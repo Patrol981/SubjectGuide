@@ -19,7 +19,7 @@ namespace SubjectGuide.Player {
     private void Update() {
       RayMouse();
       if (Input.GetMouseButtonDown(1) && !MouseOverUI()) {
-        _gameManager.NavGrid.MoveActor(_gameManager.Player, _worldPoint);
+        _gameManager.NavGrid.MoveActors(_gameManager.SubjectManager.GatherSubjects(), _worldPoint);
       }
       if (Input.GetMouseButtonDown(0) && !MouseOverUI()) {
         var ray = _camera.GetComponent<Camera>().ScreenPointToRay(_mousePosition);

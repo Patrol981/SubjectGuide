@@ -41,8 +41,27 @@ namespace SubjectGuide.Pathfinding {
       if (_moving) return;
       _moving = true;
       CalculatePath(actor.position, destination);
-      // actor.rotation = Quaternion.Euler(lookDir.x, 0, lookDir.z);
       await MoveObject(actor);
+      _moving = false;
+    }
+
+    public async void MoveActors(Transform[] actors, Vector3 destination, bool waitForEachOther = false) {
+      if (actors.Length < 1) return;
+      if (_moving) return;
+      _moving = true;
+      CalculatePath(actors[0].position, destination);
+      if (!waitForEachOther) {
+        var tasks = new Task[actors.Length];
+        for (short i = 0; i < actors.Length; i++) {
+          tasks[i] = MoveObject(actors[i], i);
+        }
+        await Task.WhenAll(tasks);
+      } else {
+        for (short i = 0; i < actors.Length; i++) {
+          await MoveObject(actors[i], i);
+        }
+      }
+
       _moving = false;
     }
 
@@ -50,8 +69,8 @@ namespace SubjectGuide.Pathfinding {
       _pathfinder.FindPath(start, end);
     }
 
-    private async Task MoveObject(Transform target) {
-      for (short i = 0; i < _finalPath.Count; i++) {
+    private async Task MoveObject(Transform target, int index = 0) {
+      for (short i = 0; i < _finalPath.Count - index; i++) {
         var targetNode = _finalPath[i];
 
         var lookDir = target.position - targetNode.Position;
