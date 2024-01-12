@@ -41,6 +41,13 @@ namespace SubjectGuide.UI {
       targetButton.GetComponent<Image>().color = Color.red;
     }
 
+    public void ClearHooks() {
+      var btns = _hooksPanel.GetComponentsInChildren<Button>();
+      foreach (var btn in btns) {
+        Destroy(btn.gameObject);
+      }
+    }
+
     private void HandleClick(ISubject subject, GameObject button) {
       _gameManager.SubjectManager.SetGuide(subject);
       ClearButtonsColor();

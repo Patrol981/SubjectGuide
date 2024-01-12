@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace SubjectGuide.Utils {
@@ -12,6 +13,8 @@ namespace SubjectGuide.Utils {
       Z = vec3.z;
     }
 
+
+    [JsonConstructor]
     public SVector3(float x, float y, float z) {
       X = x;
       Y = y;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SubjectGuide.Utils;
 using UnityEngine;
 
 namespace SubjectGuide.Managers {
@@ -21,7 +22,7 @@ namespace SubjectGuide.Managers {
     public Task Init() {
       // hardcoded for now 3 subjects
       for (short i = 0; i < 3; i++) {
-        var sub = CreateSubject(new(i, 0, 0));
+        var sub = CreateSubject(new(i, 0, 0), Vector3.zero);
         AddSubject(sub);
       }
 
@@ -38,8 +39,26 @@ namespace SubjectGuide.Managers {
       _subjects[tmp.Length] = subject;
     }
 
-    public ISubject CreateSubject(Vector3 vec3) {
-      var go = Instantiate(_subjectPrefab, vec3, Quaternion.identity, _subjectParent);
+    public void ClearSubjects() {
+      for (short i = 0; i < _subjects.Length; i++) {
+        Destroy(_subjects[i].Transform.gameObject);
+      }
+      _subjects = new ISubject[0];
+    }
+
+    public Task LoadSubjectData(ReadOnlySpan<SubjectSaveData> subsData) {
+      for (short i = 0; i < subsData.Length; i++) {
+        var sub = CreateSubject(
+          SVector3.ToVector3(subsData[i].Position),
+          SVector3.ToVector3(subsData[i].Rotation)
+        );
+        AddSubject(sub);
+      }
+      return Task.CompletedTask;
+    }
+
+    public ISubject CreateSubject(Vector3 vec3, Vector3 rot3) {
+      var go = Instantiate(_subjectPrefab, vec3, Quaternion.Euler(rot3), _subjectParent);
       return go.GetComponent<ISubject>();
     }
 

@@ -22,8 +22,7 @@ namespace SubjectGuide.SaveSystem {
           break;
       }
       var loadedData = await SaveHelper.Load($"{s_savePath}{ext}");
-
-      await _gameManager.MapScript.LoadMap(loadedData);
+      await _gameManager.LoadSave(loadedData);
     }
 
     public void Save() {

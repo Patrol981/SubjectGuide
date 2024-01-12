@@ -22,12 +22,14 @@ namespace SubjectGuide.Map {
       return Task.CompletedTask;
     }
 
-    internal async Task<Task> LoadMap(MapSave saveData) {
+    public void ClearMap() {
       var obstacles = _obstaclesParent.GetComponentsInChildren<MapObstacle>();
       foreach (var obstacle in obstacles) {
         Destroy(obstacle.gameObject);
       }
+    }
 
+    internal async Task<Task> LoadMap(MapSave saveData) {
       foreach (var mapObstacle in saveData.MapObstacles) {
         var pos = SVector3.ToVector3(mapObstacle.Position);
         var rot = SVector3.ToVector3(mapObstacle.Rotation);
@@ -40,8 +42,6 @@ namespace SubjectGuide.Map {
         ).Task;
         go.AddComponent<MapObstacle>().ObstacleData.SetupAssetReferenceData(mapObstacle.AssetGuid);
       }
-
-      await _gameManager.NavGrid.Init();
       return Task.CompletedTask;
     }
 

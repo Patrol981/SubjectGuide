@@ -27,6 +27,20 @@ namespace SubjectGuide.Managers {
       await _canvasController.CreateUIHooks(_subjectManager.Subjects);
     }
 
+    public async Task<Task> LoadSave(MapSave save) {
+      _subjectManager.ClearSubjects();
+      _canvasController.ClearHooks();
+      _mapScript.ClearMap();
+
+      await _mapScript.LoadMap(save);
+      await _subjectManager.LoadSubjectData(save.SubjectsInfo.ToArray());
+      await _canvasController.CreateUIHooks(_subjectManager.Subjects);
+
+      await _navGrid.Init();
+
+      return Task.CompletedTask;
+    }
+
     public NavGrid NavGrid => _navGrid;
     public MapScript MapScript => _mapScript;
     public SaveScript SaveScript => _saveScript;
