@@ -15,3 +15,6 @@ Application is being set up in this order:
 - And last but not least <b> nav grid </b> is being baked
 
 After those steps, user can play the game (save, load, select guide from panel or by clicking on desired subject)
+
+### Save Location
+C:\Users\USER_NAME\Documents\SubjectGuide\Saves
