@@ -28,16 +28,21 @@ namespace SubjectGuide.Managers {
     }
 
     public async Task<Task> LoadSave(MapSave save) {
+      // before we can start load save file, we need to remove all the previous assets from the game
+      // it would be faster if some of them would be reused, but it's cleaner this way
       _subjectManager.ClearSubjects();
       _canvasController.ClearHooks();
       _mapScript.ClearMap();
 
+      // in order to make sure all the systems will load in sequence
+      // I did change some standard void calls into awaitable Task,
+      // while still being syncronous
       await _mapScript.LoadMap(save);
       await _subjectManager.LoadSubjectData(save.SubjectsInfo.ToArray());
       await _canvasController.CreateUIHooks(_subjectManager.Subjects);
 
+      // after all systems are reloaded, now's the time for a* to reload itself
       await _navGrid.Init();
-
       return Task.CompletedTask;
     }
 
