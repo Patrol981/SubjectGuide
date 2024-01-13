@@ -21,8 +21,8 @@ namespace SubjectGuide.Managers {
     }
 
     public Task Init() {
-      // hardcoded for now 3 subjects
-      for (short i = 0; i < 3; i++) {
+      var rand = RandomNumberGenerator.RandomInt(3, 7);
+      for (short i = 0; i < rand; i++) {
         var sub = CreateSubject(new(i, 0, 0), Vector3.zero);
         AddSubject(sub);
       }
