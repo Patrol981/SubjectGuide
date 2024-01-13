@@ -66,6 +66,7 @@ namespace SubjectGuide.Managers {
           SVector3.ToVector3(subsData[i].Position),
           SVector3.ToVector3(subsData[i].Rotation)
         );
+        sub.OverrideData(subsData[i].Speed, subsData[i].Agility, subsData[i].Constitution);
         AddSubject(sub);
       }
       return Task.CompletedTask;

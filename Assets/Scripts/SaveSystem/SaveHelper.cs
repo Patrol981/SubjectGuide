@@ -39,7 +39,10 @@ namespace SubjectGuide.SaveSystem {
       foreach (var subject in subjects) {
         subjectsInfo.Add(new(
           SVector3.FromVector3(subject.Transform.position),
-          SVector3.FromVector3(subject.Transform.localRotation.eulerAngles)
+          SVector3.FromVector3(subject.Transform.localRotation.eulerAngles),
+          subject.Constitution,
+          subject.Agility,
+          subject.Speed
         ));
       }
       return subjectsInfo;

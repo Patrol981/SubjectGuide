@@ -38,7 +38,7 @@ namespace SubjectGuide.Pathfinding {
     }
 
     public async void MoveActor(Transform actor, Vector3 destination) {
-      Validate();
+      if (!Validate()) return;
       if (actor == null) return;
       _moving = true;
       CalculatePath(actor.position, destination);
@@ -47,7 +47,7 @@ namespace SubjectGuide.Pathfinding {
     }
 
     public async void MoveActors(Transform[] actors, Vector3 destination, bool waitForEachOther = false) {
-      Validate();
+      if (!Validate()) return;
       if (actors.Length < 1) return;
       _moving = true;
 
@@ -68,9 +68,7 @@ namespace SubjectGuide.Pathfinding {
     }
 
     private bool Validate() {
-      return _finalPath != null &&
-             _moving == false &&
-             _finalPath.Count < 1;
+      return _moving == false;
     }
 
     private void CalculatePath(Vector3 start, Vector3 end) {

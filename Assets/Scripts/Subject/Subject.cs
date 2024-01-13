@@ -10,17 +10,14 @@ namespace SubjectGuide {
     [SerializeField] private Animator _animator;
 
     private Guid _subjectId = Guid.NewGuid();
-    private double _speed = 0.0f;
-    private double _agility = 0.0f;
-    private double _constitution = 0.0f;
+    [SerializeField] private double _speed = 0.0f;
+    [SerializeField] private double _agility = 0.0f;
+    [SerializeField] private double _constitution = 0.0f;
 
     private bool _isMoving = false;
 
     private void Awake() {
       _gameManager = FindObjectOfType<GameManager>();
-    }
-
-    private void Start() {
       GenerateAttributes();
     }
 
@@ -34,6 +31,12 @@ namespace SubjectGuide {
       _speed = RandomNumberGenerator.RandomDoubleValue(1, 5);
       _agility = RandomNumberGenerator.RandomDoubleValue(1, 10);
       _constitution = RandomNumberGenerator.RandomDoubleValue(1, 20);
+    }
+
+    public void OverrideData(double speed, double agility, double constitution) {
+      _speed = speed;
+      _agility = agility;
+      _constitution = constitution;
     }
 
     public Guid SubjectId => _subjectId;

@@ -8,5 +8,7 @@ namespace SubjectGuide {
     double Agility { get; }
     double Constitution { get; }
     Transform Transform { get; }
+
+    void OverrideData(double speed, double agility, double constitution);
   }
 }
