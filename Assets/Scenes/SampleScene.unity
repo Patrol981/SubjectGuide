@@ -1901,13 +1901,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4244b876214024c912d5cd5c8dc8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gridSettings: {fileID: 11400000, guid: 07b00d76a827d77438fe28492efb0272, type: 2}
   _floor: {fileID: 1884896127}
   _wallMask:
     serializedVersion: 2
     m_Bits: 64
   _gridWorldSize: {x: 10, y: 10}
-  _nodeRadius: 0.5
-  _distance: 0
   _pathfinder: {fileID: 699166144}
 --- !u!4 &699166143
 Transform:

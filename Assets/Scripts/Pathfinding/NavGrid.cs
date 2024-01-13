@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace SubjectGuide.Pathfinding {
   public class NavGrid : MonoBehaviour {
+    [SerializeField] private GridSettings _gridSettings;
     [SerializeField] private Transform _floor;
     [SerializeField] private LayerMask _wallMask;
     [SerializeField] private Vector2 _gridWorldSize;
-    [SerializeField] private float _nodeRadius;
-    [SerializeField] private float _distance;
+    private float _nodeRadius;
 
     [SerializeField] Pathfinder _pathfinder;
 
@@ -29,6 +29,8 @@ namespace SubjectGuide.Pathfinding {
     }
 
     public Task Init() {
+      _nodeRadius = _gridSettings.NodeRadius;
+
       _nodeDiameter = _nodeRadius * 2;
       _gridSizeX = Mathf.RoundToInt(_gridWorldSize.x / _nodeDiameter);
       _gridSizeY = Mathf.RoundToInt(_gridWorldSize.y / _nodeDiameter);
@@ -37,8 +39,8 @@ namespace SubjectGuide.Pathfinding {
     }
 
     public async void MoveActor(Transform actor, Vector3 destination) {
+      Validate();
       if (actor == null) return;
-      if (_moving) return;
       _moving = true;
       CalculatePath(actor.position, destination);
       await MoveObject(actor);
@@ -46,9 +48,10 @@ namespace SubjectGuide.Pathfinding {
     }
 
     public async void MoveActors(Transform[] actors, Vector3 destination, bool waitForEachOther = false) {
+      Validate();
       if (actors.Length < 1) return;
-      if (_moving) return;
       _moving = true;
+
       CalculatePath(actors[0].position, destination);
       if (!waitForEachOther) {
         var tasks = new Task[actors.Length];
@@ -63,6 +66,12 @@ namespace SubjectGuide.Pathfinding {
       }
 
       _moving = false;
+    }
+
+    private bool Validate() {
+      return _finalPath != null &&
+             _moving == false &&
+             _finalPath.Count < 1;
     }
 
     private void CalculatePath(Vector3 start, Vector3 end) {
@@ -136,22 +145,21 @@ namespace SubjectGuide.Pathfinding {
       }
     }
 
-    // Debug Draw
 #if DEBUG
     private void OnDrawGizmos() {
       Gizmos.DrawWireCube(_floor.position, new(_gridWorldSize.x, 1, _gridWorldSize.y));
       if (_nodes != null) {
         foreach (var node in _nodes) {
           if (node.IsWall) Gizmos.color = Color.white;
-          else Gizmos.color = Color.yellow;
+          else Gizmos.color = Color.red;
 
           if (_finalPath != null) {
             if (_finalPath.Contains(node)) {
-              Gizmos.color = Color.red;
+              Gizmos.color = Color.green;
             }
           }
 
-          Gizmos.DrawCube(node.Position, Vector3.one * (_nodeDiameter - _distance));
+          Gizmos.DrawCube(node.Position, Vector3.one * _nodeDiameter);
         }
       }
     }
@@ -168,5 +176,6 @@ namespace SubjectGuide.Pathfinding {
     }
 
     public bool Busy => _moving;
+    public LayerMask WallMask => _wallMask;
   }
 }

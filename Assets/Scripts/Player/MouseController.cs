@@ -1,3 +1,4 @@
+using SubjectGuide.Globals;
 using SubjectGuide.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,6 +20,7 @@ namespace SubjectGuide.Player {
     private void Update() {
       RayMouse();
       if (Input.GetMouseButtonDown(1) && !MouseOverUI()) {
+        if (MouseOverWall()) { Debug.Log("mouse over wall"); return; }
         _gameManager.NavGrid.MoveActors(_gameManager.SubjectManager.GatherSubjects(), _worldPoint);
       }
       if (Input.GetMouseButtonDown(0) && !MouseOverUI()) {
@@ -43,6 +45,14 @@ namespace SubjectGuide.Player {
 
     public static bool MouseOverUI() {
       return EventSystem.current.IsPointerOverGameObject();
+    }
+
+    public bool MouseOverWall() {
+      var ray = _camera.GetComponent<Camera>().ScreenPointToRay(_mousePosition);
+      var layer = LayerMask.NameToLayer(GameConstants.NavWall);
+      Physics.Raycast(ray.origin, ray.direction, out var hit);
+      if (hit.transform.gameObject.layer == layer) return true;
+      return false;
     }
 
     public static Vector3 WorldPoint { get { return _worldPoint; } }
