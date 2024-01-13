@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f2b16c6c1eb9f49901ba70ff26407d, type: 3}
   m_Name: SimpleMap
   m_EditorClassIdentifier: 
-  MapDimensions: {x: 30, y: 30}
+  MapDimensions:
+    X: 30
+    Y: 30
   Obstacles:
   - m_AssetGUID: 309d5cf481ee8084db73a8192febdc0a
     m_SubObjectName: 
@@ -31,3 +33,4 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 1
   ObstaclesCount: 12
+  SubjectsMaxRange: 7

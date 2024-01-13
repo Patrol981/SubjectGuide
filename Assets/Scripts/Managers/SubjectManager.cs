@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace SubjectGuide.Managers {
   public class SubjectManager : MonoBehaviour {
+    [SerializeField] private GameManager _gameManager;
     [SerializeField] private ISubject[] _subjects = new ISubject[0];
     private ISubject _guide = null;
     [SerializeField] private GameObject _subjectPrefab;
@@ -21,7 +22,7 @@ namespace SubjectGuide.Managers {
     }
 
     public Task Init() {
-      var rand = RandomNumberGenerator.RandomInt(3, 7);
+      var rand = RandomNumberGenerator.RandomInt(3, _gameManager.MapScript.MapData.SubjectsMaxRange);
       for (short i = 0; i < rand; i++) {
         var sub = CreateSubject(new(i, 0, 0), Vector3.zero);
         AddSubject(sub);

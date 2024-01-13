@@ -52,6 +52,7 @@ namespace SubjectGuide.Map {
       _floor.localScale = new(_mapData.MapDimensions.X / 10, 1, _mapData.MapDimensions.Y / 10);
 
       var bounds = _floor.GetComponent<Collider>().bounds;
+      var maxRange = _gameManager.MapScript.MapData.SubjectsMaxRange;
       var min = new Vector2(bounds.min.x, bounds.min.z) * _floor.localScale;
       var max = new Vector2(bounds.max.x, bounds.max.z) * _floor.localScale;
 
@@ -61,7 +62,11 @@ namespace SubjectGuide.Map {
         var indexToSpawn = RandomNumberGenerator.RandomInt(0, maxRng - 1);
         var obstacleToSpawn = _mapData.Obstacles[indexToSpawn];
 
-        var randomPosition = RandomNumberGenerator.GetRandomPosition(min, max).ToVector3();
+        Vector3 randomPosition;
+        do {
+          randomPosition = RandomNumberGenerator.GetRandomPosition(min, max).ToVector3();
+        } while (IsInRadius(randomPosition, maxRange));
+
         randomPosition.z = randomPosition.y;
         randomPosition.y = 0;
         var randomRotation = RandomNumberGenerator.GetRandomRotationY();
@@ -72,6 +77,12 @@ namespace SubjectGuide.Map {
       }
 
       return Task.CompletedTask;
+    }
+
+    private bool IsInRadius(Vector2 point, float radius) {
+      Vector2 exclusionCenter = new(0f, 0f);
+      float distance = Vector2.Distance(point, exclusionCenter);
+      return distance < radius;
     }
 
     public MapData MapData => _mapData;
