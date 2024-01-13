@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using System.Linq;
 
 namespace SubjectGuide.Pathfinding {
   public class NavGrid : MonoBehaviour {
@@ -145,7 +144,7 @@ namespace SubjectGuide.Pathfinding {
       }
     }
 
-#if DEBUG
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
       Gizmos.DrawWireCube(_floor.position, new(_gridWorldSize.x, 1, _gridWorldSize.y));
       if (_nodes != null) {

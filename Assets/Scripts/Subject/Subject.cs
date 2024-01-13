@@ -1,4 +1,5 @@
 using System;
+using SubjectGuide.Globals;
 using SubjectGuide.Managers;
 using SubjectGuide.Utils;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace SubjectGuide {
     private void Update() {
       _isMoving = _gameManager.NavGrid.Busy;
 
-      _animator.SetBool("IsMoving", _isMoving);
+      _animator.SetBool(GameConstants.IsMoving, _isMoving);
     }
 
     public void GenerateAttributes() {

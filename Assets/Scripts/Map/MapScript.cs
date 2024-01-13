@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using SubjectGuide.Managers;
-using SubjectGuide.SaveSystem;
 using SubjectGuide.Utils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -63,6 +62,7 @@ namespace SubjectGuide.Map {
         var obstacleToSpawn = _mapData.Obstacles[indexToSpawn];
 
         Vector3 randomPosition;
+        // avoid spawning obstacles in subjects
         do {
           randomPosition = RandomNumberGenerator.GetRandomPosition(min, max).ToVector3();
         } while (IsInRadius(randomPosition, maxRange));

@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using SubjectGuide.Managers;
 using SubjectGuide.Map;
 using UnityEngine;
