@@ -20,7 +20,7 @@ namespace SubjectGuide.Player {
     private void Update() {
       RayMouse();
       if (Input.GetMouseButtonDown(1) && !MouseOverUI()) {
-        if (MouseOverWall()) { Debug.Log("mouse over wall"); return; }
+        if (MouseOverWall()) return;
         _gameManager.NavGrid.MoveActors(_gameManager.SubjectManager.GatherSubjects(), _worldPoint);
       }
       if (Input.GetMouseButtonDown(0) && !MouseOverUI()) {

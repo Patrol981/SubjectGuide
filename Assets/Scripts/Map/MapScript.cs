@@ -30,6 +30,9 @@ namespace SubjectGuide.Map {
     }
 
     internal async Task<Task> LoadMap(MapSave saveData) {
+      _mapData.MapDimensions = saveData.MapDimensions;
+      _floor.localScale = new(_mapData.MapDimensions.X / 10, 1, _mapData.MapDimensions.Y / 10);
+
       foreach (var mapObstacle in saveData.MapObstacles) {
         var pos = SVector3.ToVector3(mapObstacle.Position);
         var rot = SVector3.ToVector3(mapObstacle.Rotation);
@@ -46,7 +49,7 @@ namespace SubjectGuide.Map {
     }
 
     private async Task<Task> GenerateMap() {
-      _floor.localScale = new(_mapData.MapDimensions.x / 10, 1, _mapData.MapDimensions.y / 10);
+      _floor.localScale = new(_mapData.MapDimensions.X / 10, 1, _mapData.MapDimensions.Y / 10);
 
       var bounds = _floor.GetComponent<Collider>().bounds;
       var min = new Vector2(bounds.min.x, bounds.min.z) * _floor.localScale;

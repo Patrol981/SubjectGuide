@@ -19,7 +19,7 @@ namespace SubjectGuide.Managers {
 
     private async void Setup() {
       var mapData = _mapScript.MapData;
-      _navGrid.GridWorldSize = new(mapData.MapDimensions.x, mapData.MapDimensions.y);
+      _navGrid.GridWorldSize = new(mapData.MapDimensions.X, mapData.MapDimensions.Y);
 
       await _mapScript.Setup();
       await _navGrid.Init();
@@ -42,6 +42,7 @@ namespace SubjectGuide.Managers {
       await _canvasController.CreateUIHooks(_subjectManager.Subjects);
 
       // after all systems are reloaded, now's the time for a* to reload itself
+      _navGrid.GridWorldSize = new(save.MapDimensions.X, save.MapDimensions.Y);
       await _navGrid.Init();
       return Task.CompletedTask;
     }
