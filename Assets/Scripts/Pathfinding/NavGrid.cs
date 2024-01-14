@@ -68,7 +68,10 @@ namespace SubjectGuide.Pathfinding {
     }
 
     private bool Validate() {
-      return _moving == false;
+      if (_finalPath != null && _finalPath.Count < 1) return false;
+      if (_moving) return false;
+
+      return true;
     }
 
     private void CalculatePath(Vector3 start, Vector3 end) {
