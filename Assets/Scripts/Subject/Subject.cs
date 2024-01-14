@@ -21,6 +21,12 @@ namespace SubjectGuide {
       GenerateAttributes();
     }
 
+    private void Start() {
+      CheckAgility();
+      CheckSpeed();
+      CheckConstitution();
+    }
+
     private void Update() {
       _isMoving = _gameManager.NavGrid.Busy;
 
@@ -37,6 +43,26 @@ namespace SubjectGuide {
       _speed = speed;
       _agility = agility;
       _constitution = constitution;
+    }
+
+    private void CheckAgility() {
+      if (_agility >= _speed && _agility >= _constitution) {
+        transform.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.cyan;
+      }
+    }
+
+    private void CheckConstitution() {
+      if (_constitution >= _speed && _constitution >= _agility) {
+        var scale = transform.localScale * (float)(_constitution / 15);
+        var max = Vector3.Max(scale, transform.localScale);
+        transform.localScale = max;
+      }
+    }
+
+    private void CheckSpeed() {
+      if (_speed >= _constitution && _speed >= _agility) {
+        transform.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.yellow;
+      }
     }
 
     public Guid SubjectId => _subjectId;
